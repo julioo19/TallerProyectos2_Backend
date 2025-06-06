@@ -35,4 +35,15 @@ public class CarreraRestController {
     public ResponseEntity<CarreraRequest> saveCarrera(@RequestBody CarreraRequest carreraRequest){
         return new ResponseEntity<>(carreraService.save(carreraRequest), HttpStatus.CREATED);
     }
+
+    @PutMapping("/carreras/{carreraId}")
+    public ResponseEntity<CarreraRequest> updateCarrera(@PathVariable int carreraId, @RequestBody CarreraRequest carreraRequest){
+        return new ResponseEntity<>(carreraService.update(carreraId,carreraRequest), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/carreras/{carreraId}")
+    public ResponseEntity<Void> deleteCarrera(@PathVariable int carreraId){
+        carreraService.deleteById(carreraId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

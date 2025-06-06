@@ -29,6 +29,8 @@ public class CarreraServiceImpl implements CarreraService {
         nivelCarreraRepository = theNivelCarreraRepository;
     }
 
+
+
     @Transactional
     @Override
     public CarreraRequest save(CarreraRequest theCarreraRequest) {
@@ -46,16 +48,26 @@ public class CarreraServiceImpl implements CarreraService {
         return carreraDTOMapper.toCarreraRequest(carreraRepository.save(carrera));
     }
 
+
     @Transactional
     @Override
     public CarreraRequest update(int id_carrera, CarreraRequest theCarreraRequest) {
         Optional<Carrera> result = carreraRepository.findById(id_carrera);
+        int idNivelCarrera = theCarreraRequest.getIdNivelCarrera();
+        Optional<NivelCarrera> nivelResult = nivelCarreraRepository.findById(idNivelCarrera);
         Carrera carrera = null;
+        NivelCarrera nivelCarrera = null;
         if (result.isPresent()){
             carrera = result.get();
         }
         else{
             throw new RuntimeException("No se encontro la carrera con id: " + id_carrera);
+        }
+        if (nivelResult.isPresent()){
+            nivelCarrera = nivelResult.get();
+        }
+        else{
+            throw new RuntimeException("No se puede modificar la carrera: " + theCarreraRequest.getNombre() + " porque el Nivel de carrera: " + idNivelCarrera + " no existe");
         }
         carreraDTOMapper.updateCarreraFromRequest(theCarreraRequest,carrera);
         return  carreraDTOMapper.toCarreraRequest(carreraRepository.save(carrera));
@@ -81,6 +93,14 @@ public class CarreraServiceImpl implements CarreraService {
 
     @Override
     public void deleteById(int id_carrera) {
-
+        Optional<Carrera> result = carreraRepository.findById(id_carrera);
+        Carrera carrera = null;
+        if (result.isPresent()){
+            carrera = result.get();
+        }
+        else{
+            throw new RuntimeException("No se encontro la carrera: " + id_carrera);
+        }
+        carreraRepository.deleteById(id_carrera);
     }
 }
