@@ -32,12 +32,13 @@ public class EstudianteRestController {
     @GetMapping("/estudiantes/{estudianteId}")
     public ResponseEntity<EstudianteResponse> getEstudiante(@PathVariable String estudianteId){
         return new ResponseEntity<>(estudianteService.findById(estudianteId),HttpStatus.OK);
+
     }
 
     //create student
     @PostMapping("/estudiantes")
     public ResponseEntity<EstudianteRequest> saveEstudiante(@RequestBody EstudianteRequest estudianteRequest){
-        System.out.println("Fecha de nacimiento recibida: " + estudianteRequest.getFechaNacimiento());
+        //System.out.println("Fecha de nacimiento recibida: " + estudianteRequest.getFechaNacimiento());
         return new ResponseEntity<>(estudianteService.save(estudianteRequest), HttpStatus.CREATED);
     }
 
@@ -53,6 +54,4 @@ public class EstudianteRestController {
         estudianteService.deleteById(estudianteId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }
