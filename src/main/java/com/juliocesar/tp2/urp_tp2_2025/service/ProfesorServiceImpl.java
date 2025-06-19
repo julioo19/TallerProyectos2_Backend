@@ -13,8 +13,8 @@ import java.util.Optional;
 
 @Service
 public class ProfesorServiceImpl implements ProfesorService{
-    ProfesorRepository profesorRepository;
-    ProfesorMapper profesorMapper;
+    private final ProfesorRepository profesorRepository;
+    private final ProfesorMapper profesorMapper;
 
     @Autowired
     public ProfesorServiceImpl(ProfesorRepository theProfesorRepository, ProfesorMapper theProfesorMapper){
@@ -35,7 +35,7 @@ public class ProfesorServiceImpl implements ProfesorService{
     @Override
     public ProfesorRequest update(int id_profesor, ProfesorRequest theProfesorRequest) {
         Optional<Profesor> result = profesorRepository.findById(id_profesor);
-        Profesor profesor = null;
+        Profesor profesor;
         if (result.isPresent()){
             profesor = result.get();
         }
@@ -49,7 +49,7 @@ public class ProfesorServiceImpl implements ProfesorService{
     @Override
     public ProfesorResponse findById(int id_profesor) {
         Optional<Profesor> result = profesorRepository.findById(id_profesor);
-        Profesor profesor = null;
+        Profesor profesor;
         if (result.isPresent()){
             profesor = result.get();
         }
@@ -61,6 +61,7 @@ public class ProfesorServiceImpl implements ProfesorService{
 
     @Override
     public void deleteById(int id_profesor) {
+        /* refactorizar codigo
         Optional<Profesor> result = profesorRepository.findById(id_profesor);
         Profesor profesor = null;
         if (result.isPresent()){
@@ -69,6 +70,9 @@ public class ProfesorServiceImpl implements ProfesorService{
         else {
             throw new RuntimeException("No se encontro el profesor con el id: " + id_profesor);
         }
+        profesorRepository.deleteById(id_profesor);
+         */
+        profesorRepository.findById(id_profesor).orElseThrow(() -> new RuntimeException("No se encontro el profesor: " + id_profesor));
         profesorRepository.deleteById(id_profesor);
     }
 }

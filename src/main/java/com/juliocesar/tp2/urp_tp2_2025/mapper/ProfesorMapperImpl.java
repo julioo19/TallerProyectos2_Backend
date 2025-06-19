@@ -30,7 +30,7 @@ public class ProfesorMapperImpl implements ProfesorMapper{
         }
         ProfesorRequest profesorRequest = new ProfesorRequest();
         profesorRequest.setNombre(profesor.getNombre());
-        profesorRequest.setApellido(profesorRequest.getApellido());
+        profesorRequest.setApellido(profesor.getApellido());
         profesorRequest.setEmail(profesor.getEmail());
         profesorRequest.setNumeroTelefono(profesor.getTelefono());
         return profesorRequest;

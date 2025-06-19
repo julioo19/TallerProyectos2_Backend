@@ -32,15 +32,16 @@ public class ProfesorRestController {
 
     @PostMapping("/profesores")
     public ResponseEntity<ProfesorRequest> saveProfesor(@RequestBody ProfesorRequest profesorRequest){
+        //System.out.println("Apellido profesor: " + profesorRequest.getApellido());
         return new ResponseEntity<>(profesorService.save(profesorRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/profesores/{profesorId}")
-    public ResponseEntity<ProfesorRequest> updateProfesor(@PathVariable int profesorId, @PathVariable ProfesorRequest profesorRequest){
+    public ResponseEntity<ProfesorRequest> updateProfesor(@PathVariable int profesorId, @RequestBody ProfesorRequest profesorRequest){
         return new ResponseEntity<>(profesorService.update(profesorId, profesorRequest), HttpStatus.OK);
     }
 
-    @DeleteMapping("/profesore/{profesorId}")
+    @DeleteMapping("/profesores/{profesorId}")
     public ResponseEntity<Void> deleteProfesor(@PathVariable int profesorId){
         profesorService.deleteById(profesorId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

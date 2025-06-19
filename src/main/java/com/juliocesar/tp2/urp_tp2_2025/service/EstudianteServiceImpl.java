@@ -17,8 +17,8 @@ import java.util.Optional;
 @Service
 public class EstudianteServiceImpl implements EstudianteService{
 
-    private EstudianteRepository estudianteRepository;
-    private EstudianteMapperImpl estudianteDTOMapper;
+    private final EstudianteRepository estudianteRepository;
+    private final EstudianteMapperImpl estudianteDTOMapper;
 
     @Autowired
     public EstudianteServiceImpl(EstudianteRepository theEstudianteRepository, EstudianteMapperImpl theEstudianteMapper){
@@ -87,7 +87,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Override
     public EstudianteResponse findById(String codigo) {
         Optional<Estudiante> result = estudianteRepository.findById(codigo);
-        Estudiante estudiante = null;
+        Estudiante estudiante;
         if (result.isPresent()){
             estudiante = result.get();
         }
@@ -102,7 +102,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     public EstudianteRequest update(String codigo, EstudianteRequest estudianteRequest) {
         //Estudiante estudiante = estudianteRepository.findById(codigo).get();
         Optional<Estudiante> result = estudianteRepository.findById(codigo);
-        Estudiante estudiante = null;
+        Estudiante estudiante;
         if (result.isPresent()){
             estudiante = result.get();
         }
@@ -116,6 +116,7 @@ public class EstudianteServiceImpl implements EstudianteService{
     @Transactional
     @Override
     public void deleteById(String codigo) {
+        /*
         //probablemente haya que refactorizar este codigo
         Optional<Estudiante> result = estudianteRepository.findById(codigo);
         Estudiante estudiante = null;
@@ -125,6 +126,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         else{
             throw new RuntimeException("No se encontro el estudiante: " + codigo);
         }
+        estudianteRepository.deleteById(codigo);
+        */
+        estudianteRepository.findById(codigo).orElseThrow(() -> new RuntimeException("No se encontro el estudiante: " + codigo));
         estudianteRepository.deleteById(codigo);
     }
 }
