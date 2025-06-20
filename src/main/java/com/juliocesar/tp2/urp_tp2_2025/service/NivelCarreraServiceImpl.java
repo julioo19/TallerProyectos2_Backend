@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @Service
 public class NivelCarreraServiceImpl implements NivelCarreraService{
-    private NivelCarreraRepository nivelCarreraRepository;
-    private NivelCarreraMapperImpl nivelCarreraDTOMapper;
+    private final NivelCarreraRepository nivelCarreraRepository;
+    private final NivelCarreraMapperImpl nivelCarreraDTOMapper;
 
     @Autowired
     public NivelCarreraServiceImpl(
@@ -33,7 +33,7 @@ public class NivelCarreraServiceImpl implements NivelCarreraService{
     @Override
     public NivelCarreraResponse findById(int id_nivel) {
         Optional<NivelCarrera> result = nivelCarreraRepository.findById(id_nivel);
-        NivelCarrera nivelCarrera = null;
+        NivelCarrera nivelCarrera;
         if (result.isPresent()){
             nivelCarrera = result.get();
         }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 public class CarreraMapperImpl implements CarreraMapper{
-    private NivelCarreraMapper nivelCarreraMapper;
+    private final NivelCarreraMapper nivelCarreraMapper;
 
     @Autowired
     public CarreraMapperImpl(NivelCarreraMapper theNivelCarreraMapper){

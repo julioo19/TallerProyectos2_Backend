@@ -32,6 +32,9 @@ public class Curso {
     @Column(name="semestre")
     private int semestre;
 
+    @Column(name="creditos")
+    private double creditos;
+
     @Column(name="electivo")
     private boolean electivo;
 
@@ -43,6 +46,4 @@ public class Curso {
     @UpdateTimestamp
     private LocalDate updatedAt;
 
-    @Column(name="creditos")
-    private double creditos;
 }
